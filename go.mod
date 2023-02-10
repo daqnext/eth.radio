@@ -1,4 +1,4 @@
-module github.com/ens-server
+module github.com/daqnext/eth.md
 
 go 1.19
 
@@ -9,9 +9,6 @@ require (
 	github.com/labstack/gommon v0.4.0
 	github.com/spf13/viper v1.15.0
 	github.com/wealdtech/go-ens/v3 v3.5.5
-
-// 	github.com/ethereum/go-ethereum v1.9.2
-// github.com/hashicorp/golang-lru v0.5.3
 )
 
 require (
