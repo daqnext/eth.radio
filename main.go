@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"net/http/httputil"
@@ -8,6 +9,7 @@ import (
 	"regexp"
 
 	"github.com/ens-server/api"
+	"github.com/ens-server/cmd"
 	"github.com/ens-server/config"
 	"github.com/ens-server/ensc"
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -45,6 +47,18 @@ func loagConfig() {
 }
 
 func main() {
+
+	cmd.CmdOption()
+	flag.Parse()
+
+	if cmd.Opt.H {
+		flag.Usage()
+		return
+	}
+	if cmd.Opt.V {
+		cmd.Version()
+		return
+	}
 
 	loagConfig()
 
@@ -119,6 +133,13 @@ func main() {
 
 	if port == 0 {
 		port = 8009
+	}
+
+	if cmd.Opt.Host != "" {
+		host = cmd.Opt.Host
+	}
+	if cmd.Opt.Port != 0 {
+		port = cmd.Opt.Port
 	}
 
 	app.Start(fmt.Sprintf("%s:%d", host, port))
