@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="assets/css/style.css%3Fv=.css" />
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <link rel="icon" type="image/svg+xml" href="/assets/favico.svg" />
+  <body>
+    <div class="wrapper">
+      <header>
+        <div class="headerlogo">
+        </div>
+
+        <ul class="toc">
+          <h1 id="ethradio">ETH.Radio 📻</h1>
+          <li><a href="#what-is-ethdns">What is ETHDNS?</a></li>
+          <li><a href="#what-is-ethradio">What is ETH.Radio?</a></li>
+          <li><a href="#why-radio">Why do we need ETH.Radio?</a></li>
+          <li>
+            <a href="#how-does-ethdns-work-with-ipfs"
+              >How does EthDNS work with IPFS?</a
+            >
+          </li>
+          <li>
+            <a href="#how-do-i-add-a-content-hash-to-my-domain"
+              >How do I add a content hash to my domain?</a
+            >
+          </li>
+          <li>
+            <a href="#how-do-i-add-dns-information-to-my-domain"
+              >How do I add DNS information to my domain?</a
+            >
+          </li>
+          <li>
+            <a href="#are-domains-other-than-eth-supported"
+              >Are domains other than
+              <code class="highlighter-rouge">.eth</code> supported?</a
+            >
+          </li>
+          <li><a href="#security-privacy">Security and Privacy</a></li>
+
+          <li><a href="#further-reading">Further reading</a></li>
+        </ul>
+      </header>
+      <section>
+        <h1 id="ethdns-ethradio">ETHDNS and ETH.Radio 📻</h1>
+        <blockquote>
+          <p><strong><span style="font-size:18px">Meson Network Bridge First and Last Miles for Web3.</span></strong></p>
+        </blockquote>
+          
+
+        <h2 id="what-is-ethdns">What is ETHDNS?</h2>
+
+        <p>
+          <a href="https://eips.ethereum.org/EIPS/eip-1185">ETHDNS</a> is a way
+          to access information in the
+          <a href="https://ens.domains/">Ethereum Name Service</a> (ENS) from
+          DNS.
+        </p>
+
+        <h2 id="what-is-ethradio">What is ETH.Radio?</h2>
+
+        <p>
+          <a href="https://eth.radio/">ETH.Radio</a> is ETHDNS for the <strong><em>.eth</em></strong> domain. Because .eth is not a registered
+          DNS top-level domain it is normally inaccessible from DNS, but by appending
+          <strong><em>.radio</em></strong> to the domain the relevant information cam be obtained. For example, 
+          a DNS A record request for <strong><em>mydomain.eth.radio</em></strong> would look up the A records in
+          ENS for <strong><em>mydomain.eth</em></strong>.
+        </p>
+
+        <p>
+          <a href="https://eth.radio/">ETH.Radio</a> is a decentralized alternative to <a href="https://eth.link/">ETH.Link</a> released by <a href="https://meson.network/">Meson Network</a>.
+          ETH.Radio allows users and dApp developers to effortlessly access and host static sites
+          built with a combination of IPFS and ENS.
+        </p>
+
+        <p>
+          The infrastructure codebase can be found <a href="https://github.com/daqnext/eth.radio/">here</a>.
+        </p>
+
+        <h2 id="why-radio">Why do we need ETH.Radio?</h2>
+
+        <p>
+          Core internet infrastructure is becoming increasingly centralized and
+          as such, several existential threats have emerged that undermine the
+          principles of an decentralized, open and free internet:
+        </p>
+        <ul>
+          <li>Single points of failure</li>
+          <li>Censorship</li>
+          <li>Lack of non-commercial infrastructure</li>
+          <li>
+            Proliferation of proprietary browser extensions which require
+            centralized services (Unstoppable domains, etc…)
+          </li>
+          <li>The erosion of the “commons” and “public space”</li>
+          <li>Web 3.0 adoption is still nascent</li>
+          <li>Most browsers cannot natively access ENS/IPFS</li>
+        </ul>
+
+        <p>
+          For end users, this means a limited selection of poor quality services
+          that increasingly resemble a cable TV package. Accessing the dWeb can
+          be a frustrating experience if <strong><em>eth.link</em></strong>, <strong><em>eth.limo</em></strong> is unavailable.
+        </p>
+        <p>
+          For dApp developers, this leads to a limited selection of platforms
+          and services in addition to lost revenue. As an alternative to
+          eth.link for users and dApp developers, any existing <strong><em>eth.link</em></strong>, <strong><em>eth.limo</em></strong> site can
+          be accessed with <strong><em>eth.radio</em></strong> in the same manner.
+        </p>
+
+        <h2 id="how-does-ethdns-work-with-ipfs">
+          How does ETHDNS work with IPFS?
+        </h2>
+
+        <p>
+          ENS has a <code class="highlighter-rouge">contenthash</code> field
+          which contains a pointer to content somewhere on the internet, most
+          commonly in IPFS. If EthDNS is asked to serve a domain with a
+          <code class="highlighter-rouge">contenthash</code> it will carry out
+          the following operations:
+        </p>
+
+        <ul>
+          <li>
+            if the domain does not have an A record, when asked for an A record
+            it will return that of an IPFS gateway
+          </li>
+          <li>
+            when asked for TXT records it will return the contenthash both as
+            its own field and as a DNSLink reference
+          </li>
+        </ul>
+
+        <p>For example:</p>
+
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre
+              class="highlight"
+            ><code><span class="nv">$ </span>dig @127.0.0.1 +short wealdtech.eth A  
+104.18.64.168
+<span class="nv">$ </span>dig @127.0.0.1 +short wealdtech.eth TXT
+<span class="s2">"dnslink=/ipns/www.wealdtech.eth"</span>
+<span class="s2">"contenthash=0xe501017000117777772e7765616c64746563682e657468"</span>
+<span class="s2">"a=0x4760cF82331ee520573bbB332106353587E7eC49"</span>
+</code></pre>
+          </div>
+        </div>
+
+        <p>
+          This is used by eth.radio to create a reverse proxy sitting in front of
+          an IPFS Gateway.
+        </p>
+
+        <p>
+          The practical upshot of this is that if a user enters the URL
+          <code class="highlighter-rouge">https://wealdtech.eth.radio/</code> in
+          to their web browser it will return IPFS content based on the
+          information within ENS without any changes required to their system
+          (browser plugins, alternate DNS servers, <em>etc.</em>).
+        </p>
+
+        <h2 id="how-do-i-add-a-content-hash-to-my-domain">
+          How do I add a content hash to my domain?
+        </h2>
+
+        <p>Content hashes can be managed at <a href="https://manager.ens.domains/">https://manager.ens.domains/</a></p>
+
+        <p>
+          There are also
+          <a href="https://docs.ens.domains/dapp-developer-guide/ens-libraries"
+            >various libraries and CLI tools</a
+          >
+          that can manage content hashes.
+        </p>
+
+        <h2 id="how-do-i-add-dns-information-to-my-domain">
+          How do I add DNS information to my domain?
+        </h2>
+
+        <p>
+          There are
+          <a href="https://docs.ens.domains/dapp-developer-guide/ens-libraries"
+            >various libraries and CLI tools</a
+          >
+          that can manage DNS information on ENS.
+        </p>
+
+        <h2 id="are-domains-other-than-eth-supported">
+          Are domains other than
+          <strong><em>.eth</em></strong> supported?
+        </h2>
+
+        <p>
+          EthLink only applies to
+          <strong><em>.eth</em></strong> domains, however other
+          domains registered in ENS can be accessed directly when enabled.
+        </p>
+
+        <h2 id="security-privacy">Security and Privacy</h2>
+
+        <p>
+          The ETH.Radio project enforces strong origin isolation policies for all
+          resources by default. Projects accessed through ETH.Radio automatically
+          receive security hardened browser headers and all client data is
+          encrypted with TLSv1.3 (default) or TLSv1.2 using the latest
+          ciphersuites. All log data is fully anonymized, which prevents the
+          ability to uniquely identify any single user.
+        </p>
+
+        <h2 id="further-reading">Further reading</h2>
+
+        <p>
+          <a href="http://www.wealdtech.com/articles/ethdns-an-ethereum-backend-for-the-domain-name-system/"
+            >EthDNS: an Ethereum backend for the Domain Name System</a>
+        </p>
+
+        <p>
+          <a href="https://docs.ipfs.tech/concepts/dnslink/"
+            >Details of how DNSLink records are handled by IPFS gateways</a>
+        </p>
+
+        <p>
+          <a href="https://blog.cloudflare.com/cloudflare-distributed-web-resolver/"
+            >A Name Resolver for the Distributed Web</a>
+        </p>
+
+        <p>
+          <a href="https://twitter.com/NetworkMeson">Twitter</a>
+        </p>
+
+        <p>
+          <a href="mailto:admin@meson.network">Email Us</a>
+        </p>
+        <!--
+        <p>
+          <a href="https://eth.radio/privacy.html">Privacy Policy</a>
+        </p>
+        <p>
+          <a href="https://eth.radio/tos.html">Terms of Service</a>
+        </p>
+        -->
+      </section>
+
+      <footer></footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+  </body>
+</html>
