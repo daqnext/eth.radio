@@ -1,7 +1,8 @@
 package config
 
 type AppEnv struct {
-	Connection string
-	Port       int
-	Host       string
+	Connection  string
+	Ipfsgateway string
+	Port        int
+	Host        string
 }

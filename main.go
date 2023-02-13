@@ -29,8 +29,6 @@ func setupApp() *echo.Echo {
 
 var appEnv config.AppEnv
 
-const REDIRECT_PREFIX = "https://ipfs.io"
-
 func loagConfig() {
 
 	viper.SetConfigName("config") // actually 'fileName + yml'
@@ -80,7 +78,7 @@ func main() {
 		Registry: registry,
 	}
 
-	target_url, _ := url.Parse(REDIRECT_PREFIX)
+	target_url, _ := url.Parse(appEnv.Ipfsgateway)
 	proxy := httputil.NewSingleHostReverseProxy(target_url)
 
 	app.Use(func(handlerFunc echo.HandlerFunc) echo.HandlerFunc {
