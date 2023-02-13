@@ -1,4 +1,4 @@
-module github.com/daqnext/eth.md
+module github.com/daqnext/eth.radio
 
 go 1.19
 

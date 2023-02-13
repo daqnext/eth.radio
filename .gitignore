@@ -31,6 +31,7 @@ build/_vendor/pkg
 /build/bin/
 /geth*.zip
 ens-server
+ens-server-amd64
 
 # travis
 profile.tmp
