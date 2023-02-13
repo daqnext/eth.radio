@@ -23,11 +23,6 @@
           <li><a href="#what-is-ethradio">What is ETH.Radio?</a></li>
           <li><a href="#why-radio">Why do we need ETH.Radio?</a></li>
           <li>
-            <a href="#how-does-ethdns-work-with-ipfs"
-              >How does EthDNS work with IPFS?</a
-            >
-          </li>
-          <li>
             <a href="#how-do-i-add-a-content-hash-to-my-domain"
               >How do I add a content hash to my domain?</a
             >
@@ -115,45 +110,6 @@
           eth.link for users and dApp developers, any existing <strong><em>eth.link</em></strong>, <strong><em>eth.limo</em></strong> site can
           be accessed with <strong><em>eth.radio</em></strong> in the same manner.
         </p>
-
-        <h2 id="how-does-ethdns-work-with-ipfs">
-          How does ETHDNS work with IPFS?
-        </h2>
-
-        <p>
-          ENS has a <code class="highlighter-rouge">contenthash</code> field
-          which contains a pointer to content somewhere on the internet, most
-          commonly in IPFS. If EthDNS is asked to serve a domain with a
-          <code class="highlighter-rouge">contenthash</code> it will carry out
-          the following operations:
-        </p>
-
-        <ul>
-          <li>
-            if the domain does not have an A record, when asked for an A record
-            it will return that of an IPFS gateway
-          </li>
-          <li>
-            when asked for TXT records it will return the contenthash both as
-            its own field and as a DNSLink reference
-          </li>
-        </ul>
-
-        <p>For example:</p>
-
-        <div class="language-bash highlighter-rouge">
-          <div class="highlight">
-            <pre
-              class="highlight"
-            ><code><span class="nv">$ </span>dig @127.0.0.1 +short wealdtech.eth A  
-104.18.64.168
-<span class="nv">$ </span>dig @127.0.0.1 +short wealdtech.eth TXT
-<span class="s2">"dnslink=/ipns/www.wealdtech.eth"</span>
-<span class="s2">"contenthash=0xe501017000117777772e7765616c64746563682e657468"</span>
-<span class="s2">"a=0x4760cF82331ee520573bbB332106353587E7eC49"</span>
-</code></pre>
-          </div>
-        </div>
 
         <p>
           This is used by eth.radio to create a reverse proxy sitting in front of
