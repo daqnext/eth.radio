@@ -1,5 +1,7 @@
 # ETH.Radio 📻
 
+![ETH.Radio](https://i.giphy.com/media/ER9ew0BbQGCDC/giphy.webp)
+
 [ETH.Radio](https://eth.radio/) is ETHDNS for the `.eth` domain. Because .eth is not a registered DNS top-level domain it is normally inaccessible from DNS, but by appending `.radio` to the domain the relevant information cam be obtained. For example, a DNS A record request for `mydomain.eth.radio` would look up the A records in ENS for `mydomain.eth`.
 
 [ETH.Radio](https://eth.radio/) is a alternative to [ETH.Link](https://eth.link/) released by [Meson Network](https://meson.network/). ETH.Radio allows users and dApp developers to effortlessly access and host static sites built with a combination of IPFS and ENS.
