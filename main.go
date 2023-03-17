@@ -101,6 +101,10 @@ func main() {
 
 			ethDomain := grp[1] + "."
 			log.Info("ethDomain ", ethDomain)
+			if ethDomain == "eth." || ethDomain == "www.eth." {
+				handlerFunc(c)
+				return nil
+			}
 
 			hashcontent, err := ens_ctx.Query(ethDomain, ethDomain)
 			if err != nil {

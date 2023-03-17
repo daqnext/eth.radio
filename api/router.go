@@ -6,11 +6,10 @@ import (
 	echo "github.com/labstack/echo/v4"
 )
 
-func testapi(c echo.Context) error {
-	return c.String(http.StatusOK, "hello word")
+func health(c echo.Context) error {
+	return c.String(http.StatusOK, "it's health")
 }
 
 func DeclareRoute(server *echo.Echo) {
-
-	server.GET("/test/api", testapi)
+	server.GET("/health", health)
 }
