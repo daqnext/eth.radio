@@ -102,14 +102,12 @@ func main() {
 			ethDomain := grp[1] + "."
 			log.Info("ethDomain ", ethDomain)
 			if ethDomain == "eth." || ethDomain == "www.eth." {
-				handlerFunc(c)
-				return nil
+				return handlerFunc(c)
 			}
 
 			hashcontent, err := ens_ctx.Query(ethDomain, ethDomain)
 			if err != nil {
 				log.Error("Error ", err.Error())
-
 				return c.String(http.StatusOK, host_domain)
 			}
 
