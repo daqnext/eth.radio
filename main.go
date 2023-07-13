@@ -127,14 +127,6 @@ func main() {
 	host := appEnv.Host
 	port := appEnv.Port
 
-	if host == "*" {
-		host = ""
-	}
-
-	if port == 0 {
-		port = 8009
-	}
-
 	if cmd.Opt.Host != "" {
 		host = cmd.Opt.Host
 	}
@@ -142,5 +134,13 @@ func main() {
 		port = cmd.Opt.Port
 	}
 
-	app.Start(fmt.Sprintf("%s:%d", host, port))
+	if host == "*" {
+		host = ""
+	}
+	if port == 0 {
+		port = 8009
+	}
+
+	addr := fmt.Sprintf("%s:%d", host, port)
+	app.Start(addr)
 }

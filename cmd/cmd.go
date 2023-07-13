@@ -23,7 +23,7 @@ func CmdOption() {
 	flag.BoolVar(&Opt.V, "V", false, "show version and exit")
 
 	flag.StringVar(&Opt.Host, "b", "", "bind host")
-	flag.IntVar(&Opt.Port, "p", 8009, "set port")
+	flag.IntVar(&Opt.Port, "p", 0, "set port")
 
 	flag.Usage = usage
 }
